@@ -25,7 +25,7 @@ const dates = ref()
 	// function to add validated ticket
 	function addTicket(isLegal) {
 		// make get request to backend
-		toast.info("Ticket added!", {position: "bottom-center"});
+		toast.info("Ticket adding...", {position: "bottom-center"});
 
 		let link = "https://n8n.hryszko.dev/webhook/05ff9771-d474-43ab-a310-7550ef96f45c?isLegal=" + isLegal;
 		axios.get(link).then(function() {
