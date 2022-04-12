@@ -13,7 +13,7 @@
 		// make get request to backend
 		toast.info("Ticket adding...", {position: "bottom-center"});
 
-		let link = "https://n8n.hryszko.dev/webhook/05ff9771-d474-43ab-a310-7550ef96f45c?isLegal=" + isLegal;
+		let link = "https://n8n.hryszko.dev/webhook/1775577318509977542309048297858764241348559561422156758496578785?isLegal=" + isLegal;
 		axios.get(link).then(function() {
 			// success toast
 			// clear t
@@ -31,19 +31,12 @@
 	// function to get data from API
 	function refreshBadges(){
 		console.log("refreshing");
-		let link = "https://n8n.hryszko.dev/webhook/05ff9771-d474-43ab-a310-7550ef96f45casd";
-		let linkDates = "https://n8n.hryszko.dev/webhook/e06a89c6-24e1-4deb-b9e4-a578a63546a2";
+		let linkDates = "https://n8n.hryszko.dev/webhook/1671306388454128104125868268763490928662314839909164282718566496";
 
-		axios.get(link).then(function(r){
+		axios.get(linkDates).then(function(r){
 			data.value = r.data;
 		}).catch(function(){
 			toast.error("Error loading data!", {position: "bottom-center"});
-		})
-
-		axios.get(linkDates).then(function(r){
-			dates.value = r.data;
-		}).catch(function(){
-			toast.error("Error loading graph!", {position: "bottom-center"});
 		})
 
 		toast.clear();
