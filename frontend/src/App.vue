@@ -6,21 +6,7 @@
 	
 	// https://github.com/Maronato/vue-toastification#installation
 	const toast = useToast();
-	const data = ref(
-		{
-			"legal": {
-				"count": "...",
-				"value": "...",
-			},
-			"illegal": {
-				"count": "...",
-				"value": "...",
-			},
-		}
-	);
-const dates = ref()
-
-	// colors
+	const dates = ref()
 
 	// function to add validated ticket
 	function addTicket(isLegal) {
@@ -65,6 +51,32 @@ const dates = ref()
 	}
 
 	refreshBadges();
+
+	const data = computed(() => {
+		let r = {
+			"legal": {
+				"count": 0,
+				"value": 0,
+			},
+			"illegal": {
+				"count": 0,
+				"value": 0,
+			},
+		}
+
+		if(dates.value)
+			dates.value.map(item => {
+				if(item.json.fields.isLegal){
+					r.legal.count += 1;
+					r.legal.value += item.json.fields.value;
+				} else {
+					r.illegal.count += 1;
+					r.illegal.value += item.json.fields.value;
+				}
+			})
+
+		return r;
+	})
 
 	const getGraphLink = computed(() => {
 		// check if dates is empty
@@ -126,6 +138,8 @@ const dates = ref()
 <template>
 
 	<div>
+
+		{{dates}}
 
 		<div class="flex justify-center mt-6">
 
