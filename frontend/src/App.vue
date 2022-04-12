@@ -13,7 +13,7 @@
 		// make get request to backend
 		toast.info("Ticket adding...", {position: "bottom-center"});
 
-		let link = "https://n8n.hryszko.dev/webhook/1775577318509977542309048297858764241348559561422156758496578785?isLegal=" + isLegal;
+		let link = "https://n8n.hryszko.dev/webhook/2738532385106275747395572459442129070175242265228566670789939955?isLegal=" + isLegal;
 		axios.get(link).then(function() {
 			// success toast
 			// clear t
@@ -31,10 +31,10 @@
 	// function to get data from API
 	function refreshBadges(){
 		console.log("refreshing");
-		let linkDates = "https://n8n.hryszko.dev/webhook/1671306388454128104125868268763490928662314839909164282718566496";
+		let linkDates = "https://n8n.hryszko.dev/webhook/0242959710229880165173228558268231912945526418283536827480213091";
 
 		axios.get(linkDates).then(function(r){
-			data.value = r.data;
+			dates.value = r.data;
 		}).catch(function(){
 			toast.error("Error loading data!", {position: "bottom-center"});
 		})
@@ -59,12 +59,12 @@
 
 		if(dates.value)
 			dates.value.map(item => {
-				if(item.json.fields.isLegal){
+				if(item.json.isLegal){
 					r.legal.count += 1;
-					r.legal.value += item.json.fields.value;
+					r.legal.value += item.json.value;
 				} else {
 					r.illegal.count += 1;
-					r.illegal.value += item.json.fields.value;
+					r.illegal.value += item.json.value;
 				}
 			})
 
@@ -102,7 +102,7 @@
 		}
 
 		dates.value.forEach(function(d){
-			let temp = d.json.fields.date
+			let temp = d.json.date
 
 			// substring to remove time
 			temp = temp.substring(0, 10);
@@ -115,10 +115,10 @@
 			}
 			
 			let index = data.data.labels.indexOf(temp);
-			if(d.json.fields.isLegal){
-				data.data.datasets[0].data[index] += d.json.fields.value;
+			if(d.json.isLegal){
+				data.data.datasets[0].data[index] += d.json.value;
 			} else {
-				data.data.datasets[1].data[index] += d.json.fields.value;
+				data.data.datasets[1].data[index] += d.json.value;
 			}
 
 			})
@@ -131,8 +131,6 @@
 <template>
 
 	<div>
-
-		{{dates}}
 
 		<div class="flex justify-center mt-6">
 
