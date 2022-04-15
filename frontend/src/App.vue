@@ -146,14 +146,14 @@
 					<img class="w-full" :src="getGraphLink" alt="Sunset in the mountains">
 				</a>
 				<div class="px-6 py-4">
-					<div class="font-bold text-base text-center mb-2">Suma wydanych pieniędzy na bilet</div>
+					<div class="font-bold text-base text-center mb-2">Waste amount:</div>
 						
 					<div class="pt-4 pb-2 text-center">
 						<span class="inline-block bg-red-200 hover:bg-red-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.legal.count}} tickets!</span>
 						<span class="inline-block bg-red-300 hover:bg-red-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.legal.value}}PLN</span>
 					</div>
 
-					<div class="font-bold text-sm text-center mb-2">Suma zaoszczędzonych pieniędzy na biletach</div>
+					<div class="font-bold text-sm text-center mb-2">Saved amount:</div>
 					<div class="pt-4 pb-2 text-center">
 						<span class="inline-block bg-green-200 hover:bg-green-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.illegal.count}} tickets!</span>
 						<span class="inline-block bg-green-300 hover:bg-green-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.illegal.value}}PLN</span>
