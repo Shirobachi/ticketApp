@@ -59,7 +59,7 @@
 
 		if(dates.value)
 			dates.value.map(item => {
-				if(item.json.isLegal){
+				if(item.json.isLegal == "True" || item.json.isLegal == true){
 					r.legal.count += 1;
 					r.legal.value += item.json.value;
 				} else {
@@ -115,7 +115,7 @@
 			}
 			
 			let index = data.data.labels.indexOf(temp);
-			if(d.json.isLegal){
+			if(d.json.isLegal == "True" || d.json.isLegal == true){
 				data.data.datasets[0].data[index] += d.json.value;
 			} else {
 				data.data.datasets[1].data[index] += d.json.value;
