@@ -77,14 +77,13 @@
 			return "https://dummyimage.com/200x100/fff/000.png&text=Loading+grapth...";
 			
 		let data = {
-			type: 'bar',
+			type: 'radar',
 			data: {
 				labels: [],
 				datasets: [
 					{
 						label: 'Legal',
 						data: [],
-						fill: false,
 						backgroundColor: "rgba(255, 99, 132, 0.2)",
 						borderColor: "rgb(255, 99, 132)",
 						borderWidth: 1,
@@ -92,14 +91,21 @@
 					{
 						label: 'Illegal',
 						data: [],
-						fill: false,
 						backgroundColor: "rgba(75, 192, 192, 0.2)",
 						borderColor: "rgb(75, 192, 192)",
 						borderWidth: 1,
 					}
 				]
+			},
+			options: {
+				'fill': true
 			}
 		}
+
+		const limit = 7;
+
+		// reverse dates
+		dates.value.reverse();
 
 		dates.value.forEach(function(d){
 			let temp = d.json.date
@@ -108,19 +114,27 @@
 			temp = temp.substring(0, 10);
 			
 			// check if temp in data.data.labels
-			if(data.data.labels.indexOf(temp) == -1){
-				data.data.labels.push(temp);
-				data.data.datasets[0].data.push(0);
-				data.data.datasets[1].data.push(0);
-			}
-			
-			let index = data.data.labels.indexOf(temp);
-			if(d.json.isLegal == "True" || d.json.isLegal == true){
-				data.data.datasets[0].data[index] += d.json.value;
-			} else {
-				data.data.datasets[1].data[index] += d.json.value;
+			if(data.data.labels.indexOf(temp) == -1 && data.data.labels.length < limit){
+				data.data.labels.unshift(temp);
+				data.data.datasets[0].data.unshift(0);
+				data.data.datasets[1].data.unshift(0);
 			}
 
+			// if temp not in data.data.labels and labels.length >= limit
+			if( data.data.labels.includes(temp) || !data.data.labels.length >= limit){
+        console.log("🚀 ~ file: App.vue ~ line 119 ~ dates.value.forEach ~ temp", temp)
+        console.log("🚀 ~ file: App.vue ~ line 119 ~ dates.value.forEach ~ data.data.labels", data.data.labels)
+        console.log("🚀 ~ file: App.vue ~ line 119 ~ dates.value.forEach ~ data.data.labels.length >= 7", data.data.labels.length >= 7)
+        console.log("🚀 ~ file: App.vue ~ line 119 ~ dates.value.forEach ~ data.data.labels.includes(temp)", data.data.labels.includes(temp))
+				console.log('---')
+				let index = data.data.labels.indexOf(temp);
+				if(d.json.isLegal == "True" || d.json.isLegal == true){
+					data.data.datasets[0].data[index] += d.json.value;
+				} else {
+					data.data.datasets[1].data[index] += d.json.value;
+				}
+
+				}
 			})
 
 			return "https://quickchart.io/chart?c=" + JSON.stringify(data)
@@ -146,14 +160,14 @@
 					<img class="w-full" :src="getGraphLink" alt="Sunset in the mountains">
 				</a>
 				<div class="px-6 py-4">
-					<div class="font-bold text-base text-center mb-2">Waste amount:</div>
+					<div class="font-bold text-base text-center mb-2">Waste amount (all):</div>
 						
 					<div class="pt-4 pb-2 text-center">
 						<span class="inline-block bg-red-200 hover:bg-red-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.legal.count}} tickets!</span>
 						<span class="inline-block bg-red-300 hover:bg-red-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.legal.value}}PLN</span>
 					</div>
 
-					<div class="font-bold text-sm text-center mb-2">Saved amount:</div>
+					<div class="font-bold text-sm text-center mb-2">Saved amount (all):</div>
 					<div class="pt-4 pb-2 text-center">
 						<span class="inline-block bg-green-200 hover:bg-green-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.illegal.count}} tickets!</span>
 						<span class="inline-block bg-green-300 hover:bg-green-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-4 mb-2">{{data.illegal.value}}PLN</span>
